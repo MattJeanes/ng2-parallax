@@ -1,15 +1,21 @@
 {
-	"compilerOptions": {
-		"target": "es5",
-		"module": "system",
-		"moduleResolution": "node",
-		"inlineSourceMap": true,
-		"emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
-		"removeComments": false,
-		"noImplicitAny": false
-	},
-	"exclude": [
-		"node_modules"
-	]
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [ "es5", "es2015", "dom" ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "strictNullChecks": false,
+    "noUnusedLocals": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "alwaysStrict": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "declaration": true
+  },
+  "compileOnSave": true
 }

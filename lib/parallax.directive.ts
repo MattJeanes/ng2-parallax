@@ -1,10 +1,8 @@
-// ng2-parallax
+// ngx-parallax
 
 import { Directive, 
 		 ElementRef, 
-		 Host, 
 		 Input,
-		 Optional, 
 		 OnInit } from '@angular/core';
 
 /* 
@@ -14,7 +12,7 @@ more than just the parallax effect, and it is able to transform anything about t
 [parallaxElement] that you want to have bound to the scrolling of the nested element.  
 
 */
-interface ParallaxConfig {
+export interface ParallaxConfig {
 	// the css property (converted to camelCase) that you want changed along with the
 	// value you want to assign to the css key; you should use cssProperty if you're 
 	// just defining one property without special values
@@ -75,7 +73,7 @@ interface ParallaxConfig {
     selector: '[parallax]'
 })
 
-class Parallax implements OnInit {
+export class Parallax implements OnInit {
 	name: string = 'parallaxDirective';
 	
     @Input() config: ParallaxConfig;
@@ -93,7 +91,7 @@ class Parallax implements OnInit {
 	@Input() maxValue: number;
 	@Input() minValue: number;
 	@Input() cssUnit: string = 'px';
-	@Input() cb;
+	@Input() cb: any;
 	@Input() cb_context: any = null;
 	@Input() cb_args: any[] = [];
 	@Input() scrollElement: any;
@@ -195,6 +193,3 @@ class Parallax implements OnInit {
 		this.hostElement = element.nativeElement;
     }
 }
-
-
-export { Parallax, ParallaxConfig };
