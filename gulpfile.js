@@ -2,7 +2,7 @@
 var rollup = require('rollup-stream');
 var source = require('vinyl-source-stream');
 var run = require('gulp-run');
-var rolluptypescript = require('rollup-plugin-typescript');
+var rolluptypescript = require('@alexlur/rollup-plugin-typescript');
 var typescript = require('typescript');
 
 var package = require('./package.json');

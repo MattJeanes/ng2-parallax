@@ -5,3 +5,4 @@ obj/**
 **/*.js
 **/*.js.map
 node_modules
+*.tgz
