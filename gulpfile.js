@@ -7,7 +7,11 @@ var typescript = require('typescript');
 
 var package = require('./package.json');
 
-gulp.task('build', function () {
+gulp.task('typescript', function () {
+    run('tsc').exec();
+})
+
+gulp.task('build', ['typescript'], function () {
     return rollup({
         entry: './main.ts',
         format: 'umd',
