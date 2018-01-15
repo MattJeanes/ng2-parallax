@@ -10,3 +10,6 @@ obj/**
 *.tgz
 tsconfig.json
 !dist/**/*.js
+!lib/**/*.js
+.git/**
+**/yarn.lock

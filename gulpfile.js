@@ -13,9 +13,9 @@ gulp.task('typescript', function () {
 
 gulp.task('build', ['typescript'], function () {
     return rollup({
-        entry: './main.ts',
+        input: './main.ts',
         format: 'umd',
-        moduleName: package.name,
+        name: package.name,
         plugins: [
             rolluptypescript({
                 typescript: typescript

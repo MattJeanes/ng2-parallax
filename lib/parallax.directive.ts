@@ -72,7 +72,6 @@ export interface ParallaxConfig {
 @Directive({
     selector: '[parallax]'
 })
-
 export class Parallax implements OnInit {
 	name: string = 'parallaxDirective';
 	

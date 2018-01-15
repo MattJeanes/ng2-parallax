@@ -6,3 +6,5 @@ obj/**
 **/*.js.map
 node_modules
 *.tgz
+*.metadata.json
+*.ngsummary.json
