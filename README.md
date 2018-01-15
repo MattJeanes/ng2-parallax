@@ -59,12 +59,12 @@ First, you have to register where the ngx-parallax is:
 
 #### Using `webpack` or `systemjs`:
 ```typescript
-import { Parallax, ParallaxConfig } from 'ngx-parallax';
+import { ParallaxModule, ParallaxConfig } from 'ngx-parallax';
 ```
 
 #### Using a local copy:
 ```typescript
-import { Parallax, ParallaxConfig } from './path/to/directives/parallax.directive';
+import { ParallaxModule, ParallaxConfig } from './path/to/directives/parallax.directive';
 ```
 
 If you import both Parallax and ParallaxConfig, you can get some IntelliSense or type verification help for the parallaxConfig object you can define in your component's class.  You'll see how to implement that shortly.
@@ -73,8 +73,8 @@ In order to get your component to recognize it, you need to add it to your modul
 
 ```typescript
 @NgModule({
-    declarations: [
-        Parallax  // <----- Right here
+    modules: [
+        ParallaxModule  // <----- Right here
     ]
 })
 ```
