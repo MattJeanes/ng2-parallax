@@ -73,7 +73,7 @@ In order to get your component to recognize it, you need to add it to your modul
 
 ```typescript
 @NgModule({
-    modules: [
+    imports: [
         ParallaxModule  // <----- Right here
     ]
 })
