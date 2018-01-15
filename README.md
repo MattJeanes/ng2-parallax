@@ -91,10 +91,10 @@ You can then use the directive anywhere within that component itself by sticking
 This plugin assumes you've added styling to the element you've put the "parallax" attribute onto, like height, width, and background-image.  If you'd like to override any of the default settings for the parallax directive when you'd like to customize the functionality.  One way you can do that is by passing in a `[config]` object through the HTML.
 
 ```html
-<div parallax [config]="{parallaxInitVal: -100, parallaxRatio: .7}"></div>
+<div parallax [config]="{initialValue: -100, ratio: .7}"></div>
 ```
 
-For more specific information, refer to the examples found at the [project page](http://MattJeanes.com/ngx-parallax/ts-examples), or in the examples folder for the version of the plugin you'd like to use, which you can access when you've cloned or downloaded the project. **Currently, only the TypeScript version works.  The JS version is under development and the Dart version will happen later, when demand is up for it** (or when it's requested and I have time to learn Dart or someone helps to contribute to that version... :P).
+For more specific information, refer to the examples found at the [project page](http://cwadrupldijjit.com/ng2-parallax/ts-examples), or in the examples folder for the version of the plugin you'd like to use, which you can access when you've cloned or downloaded the project. **Currently, only the TypeScript version works.  The JS version is under development and the Dart version will happen later, when demand is up for it** (or when it's requested and I have time to learn Dart or someone helps to contribute to that version... :P).
 
 Any feedback is much appreciated.  Log issues, send pull requests, you know the drill.
 
