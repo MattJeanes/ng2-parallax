@@ -2,11 +2,12 @@
 
 import {
     Directive,
-    ElementRef, HostListener,
+    ElementRef,
+    HostListener,
     Input,
-    OnInit
+    OnInit,
 } from '@angular/core';
-import {timer} from 'rxjs/observable/timer';
+import { timer } from 'rxjs/observable/timer';
 
 /*
 These are optional values you can include in the config object you can pass into the
@@ -44,11 +45,11 @@ export interface ParallaxConfig {
     // This value is to throttle the amount scrollevents.
     // Default value is 3ms. So if keep scrolling, the css effects will only be applied every 3ms on default
     // If set to 0, micro-stuttering could become a problem.
-    throttleInterval?:number;
+    throttleInterval?: number;
     // This is applied to the calculated value, for trimming the digits.
     // Default value is 2 digits. So if the calculated value is 100.1234567px,
     // the value that is going to be applied is 100.12px
-    valueFixedDigits?:number;
+    valueFixedDigits?: number;
 
     // the upper constraint for the css transformation
     maxValue?: number;
@@ -107,7 +108,7 @@ export class Parallax implements OnInit {
     @Input() scrollElement: any;
     @Input() parallaxElement: HTMLElement;
     @Input() throttleInterval: number = 3;
-    @Input() valueFixedDigits:number = 2;
+    @Input() valueFixedDigits: number = 2;
 
     parallaxStyles: {} = {};
 
@@ -125,10 +126,10 @@ export class Parallax implements OnInit {
             // Calculating the percentage makes the scrolling somehow smoother in my testing.
             let maxScrollHeight = document.documentElement.scrollHeight;
             if (this.scrollElement instanceof Window)
-            // calcVal = this.scrollElement.scrollY * this.ratio + this.initialValue;
+                // calcVal = this.scrollElement.scrollY * this.ratio + this.initialValue;
                 calcVal = ((this.scrollElement.scrollY / maxScrollHeight) * 100) * this.ratio;
             else
-            // calcVal = this.scrollElement.scrollTop * this.ratio + this.initialValue;
+                // calcVal = this.scrollElement.scrollTop * this.ratio + this.initialValue;
                 calcVal = ((this.scrollElement.scrollTop / maxScrollHeight) * 100) * this.ratio;
 
             if (this.maxValue !== undefined && calcVal >= this.maxValue)
@@ -204,7 +205,7 @@ export class Parallax implements OnInit {
                 try {
                     this.scrollElement = document.getElementById(this.scrollerId);
                     if (!this.scrollElement)
-                        throw(`The ID passed through the parallaxConfig ('${this.scrollerId}') object was not found in the document.  Defaulting to tracking the scrolling of the window.`);
+                        throw (`The ID passed through the parallaxConfig ('${this.scrollerId}') object was not found in the document.  Defaulting to tracking the scrolling of the window.`);
                 } catch (e) {
                     console.warn(e);
                     this.scrollElement = window;
