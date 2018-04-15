@@ -18,7 +18,7 @@ more than just the parallax effect, and it is able to transform anything about t
 */
 export interface ParallaxConfig {
     // the css property (converted to camelCase) that you want changed along with the
-    // value you want to assign to the css key; you should use cssProperty if you're
+    // value you want to assign to the css key; you should use cssProperty if you're 
     // just defining one property without special values
     cssKey?: string;
 
@@ -33,23 +33,17 @@ export interface ParallaxConfig {
     // before or, if you didn't define one, it defaults to 0
     initialValue?: number;
 
-    // use this if you want the parallax effect only if the passed in statement is
+    // use this if you want the parallax effect only if the passed in statement is 
     // truthy; default is boolean true
     canMove?: any;
 
-    // the id for the element on the page you'd like to track the scrolling of in the
-    // case where the element is not available in the current component;
-    // if no id is defined along with no scrollElement below,
+    // the id for the element on the page you'd like to track the scrolling of in the 
+    // case where the element is not available in the current component; 
+    // if no id is defined along with no scrollElement below, 
     // it defaults to the scrolling of the body
     scrollerId?: string;
-    // This value is to throttle the amount scrollevents.
-    // Default value is 3ms. So if keep scrolling, the css effects will only be applied every 3ms on default
-    // If set to 0, micro-stuttering could become a problem.
-    throttleInterval?: number;
-    // This is applied to the calculated value, for trimming the digits.
-    // Default value is 2 digits. So if the calculated value is 100.1234567px,
-    // the value that is going to be applied is 100.12px
-    valueFixedDigits?: number;
+
+
 
     // the upper constraint for the css transformation
     maxValue?: number;
@@ -57,14 +51,14 @@ export interface ParallaxConfig {
     // the lower constraint for the css transformation
     minValue?: number;
 
-    // the unit (e.g. 'px', 'em', '%', 'vh', etc.) you want for the parallax effect to use
+    // the unit (e.g. 'px', 'em', '%', 'vh', etc.) you want for the parallax effect to use 
     cssUnit?: string;
 
-    // the element in the current component that you'd like the directive to track its
+    // the element in the current component that you'd like the directive to track its 
     // position as it scrolls;  gets assigned to the body if nothing is defined
     scrollElement?: HTMLElement;
 
-    // the element that you'd like the effects from scrolling the scrollElement applied
+    // the element that you'd like the effects from scrolling the scrollElement applied 
     // to; essentially the element that moves as you scroll
     parallaxElement?: HTMLElement;
 
@@ -74,7 +68,7 @@ export interface ParallaxConfig {
     // optional callback function for additional actions during scaling
     cb?(): void;
 
-    // arguments for optional callback entered into an array; for context-specific
+    // arguments for optional callback entered into an array; for context-specific 
     cb_args?: any[];
 
     // callback context in the case where the callback is context-specific
