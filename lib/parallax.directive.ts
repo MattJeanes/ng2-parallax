@@ -43,8 +43,6 @@ export interface ParallaxConfig {
     // it defaults to the scrolling of the body
     scrollerId?: string;
 
-
-
     // the upper constraint for the css transformation
     maxValue?: number;
 
@@ -120,10 +118,8 @@ export class Parallax implements OnInit {
             // Calculating the percentage makes the scrolling somehow smoother in my testing.
             let maxScrollHeight = document.documentElement.scrollHeight;
             if (this.scrollElement instanceof Window)
-                // calcVal = this.scrollElement.scrollY * this.ratio + this.initialValue;
                 calcVal = ((this.scrollElement.scrollY / maxScrollHeight) * 100) * this.ratio;
             else
-                // calcVal = this.scrollElement.scrollTop * this.ratio + this.initialValue;
                 calcVal = ((this.scrollElement.scrollTop / maxScrollHeight) * 100) * this.ratio;
 
             if (this.maxValue !== undefined && calcVal >= this.maxValue)
@@ -161,8 +157,6 @@ export class Parallax implements OnInit {
     }
 
     public ngOnInit() {
-        //let cssValArray: string[];
-
         // console.log('%s initialized on element', this.name, this.hostElement);
         // console.log(this);
 
@@ -177,13 +171,6 @@ export class Parallax implements OnInit {
 
             this.cssProperty = 'backgroundPosition';
         }
-        // I couldn't figure out what this is actually used for. Both the cssKey and cssProperty is set to 'translate3d' in this block before ignoring the block.
-        // (If not using the transform css property, this can be out-commented.
-        /*
-        cssValArray = this.cssProperty.split(':');
-        this.cssKey = cssValArray[0];
-        this.cssValue = cssValArray[1];
-        */
 
         this.isSpecialVal = this.cssValue ? true : false;
         if (!this.cssValue) this.cssValue = this.cssKey;
@@ -206,7 +193,6 @@ export class Parallax implements OnInit {
                 }
             } else this.scrollElement = window;
         }
-        //this.scrollElement.addEventListener('scroll', this.evaluateScroll.bind(this));
         window.requestAnimationFrame(this.evaluateScroll);
     }
 
