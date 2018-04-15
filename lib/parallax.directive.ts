@@ -161,7 +161,7 @@ export class Parallax implements OnInit {
     }
 
     public ngOnInit() {
-        let cssValArray: string[];
+        //let cssValArray: string[];
 
         // console.log('%s initialized on element', this.name, this.hostElement);
         // console.log(this);
