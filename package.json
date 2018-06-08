@@ -1,6 +1,6 @@
 {
   "name": "ngx-parallax",
-  "version": "3.0.0-rc.2",
+  "version": "4.0.0-rc.2",
   "description": "Parallax effect module for Angular 4+",
   "main": "dist/bundle.js",
   "types": "main.d.ts",
@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@alexlur/rollup-plugin-typescript": "^1.0.4",
+    "@angular/cli": "^6.0.8",
     "@angular/compiler": "^5.2.0",
     "@angular/compiler-cli": "^5.2.0",
     "@angular/core": "^5.2.0",
