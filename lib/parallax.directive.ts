@@ -3,15 +3,17 @@
 import {
     Directive,
     ElementRef,
+    HostListener,
     Input,
     OnInit,
 } from '@angular/core';
+import { timer } from 'rxjs/observable/timer';
 
-/* 
-These are optional values you can include in the config object you can pass into the 
-directive for custom properties you want to use this with.  This tool can be used for 
-more than just the parallax effect, and it is able to transform anything about the 
-[parallaxElement] that you want to have bound to the scrolling of the nested element.  
+/*
+These are optional values you can include in the config object you can pass into the
+directive for custom properties you want to use this with.  This tool can be used for
+more than just the parallax effect, and it is able to transform anything about the
+[parallaxElement] that you want to have bound to the scrolling of the nested element.
 
 */
 export interface ParallaxConfig {
@@ -78,30 +80,33 @@ export class Parallax implements OnInit {
     name: string = 'parallaxDirective';
 
     @Input() config: ParallaxConfig;
-    // the following @Inputs are all part of the config object, which for 
-    // brevity's sake, you can do a bunch of operations in bulk by passing 
-    // in the config object; caveat for this is that angular 2 won't permit 
+    // the following @Inputs are all part of the config object, which for
+    // brevity's sake, you can do a bunch of operations in bulk by passing
+    // in the config object; caveat for this is that angular 2 won't permit
     // more than 9 keys being passed in an object via the template
-    @Input() cssKey: string = 'backgroundPosition';
-    @Input() cssProperty: string = 'backgroundPositionY';
+    @Input() cssKey: string = 'transform';
+    @Input() cssProperty: string = 'translate3d';
     @Input() axis: 'X' | 'Y' = 'Y';
-    @Input() ratio: number = -.7;
+    @Input() ratio: number = -2;
     @Input() initialValue: number = 0;
     @Input() canMove: any = true;
     @Input() scrollerId: string;
     @Input() maxValue: number;
     @Input() minValue: number;
-    @Input() cssUnit: string = 'px';
+    @Input() cssUnit: string = '%';
     @Input() cb: any;
     @Input() cb_context: any = null;
     @Input() cb_args: any[] = [];
     @Input() scrollElement: any;
     @Input() parallaxElement: HTMLElement;
+    @Input() throttleInterval: number = 3;
+    @Input() valueFixedDigits: number = 2;
 
     parallaxStyles: {} = {};
 
     private cssValue: string;
     private isSpecialVal: boolean = false;
+    private canTrigger: boolean = true;
 
     private hostElement: HTMLElement;
 
@@ -110,16 +115,19 @@ export class Parallax implements OnInit {
             let resultVal: string;
             let calcVal: number;
 
+            // Calculating the percentage makes the scrolling somehow smoother in my testing.
+            let maxScrollHeight = document.documentElement.scrollHeight;
             if (this.scrollElement instanceof Window)
-                calcVal = this.scrollElement.scrollY * this.ratio + this.initialValue;
+                calcVal = ((this.scrollElement.scrollY / maxScrollHeight) * 100) * this.ratio;
             else
-                calcVal = this.scrollElement.scrollTop * this.ratio + this.initialValue;
+                calcVal = ((this.scrollElement.scrollTop / maxScrollHeight) * 100) * this.ratio;
 
             if (this.maxValue !== undefined && calcVal >= this.maxValue)
                 calcVal = this.maxValue;
             else if (this.minValue !== undefined && calcVal <= this.minValue)
                 calcVal = this.minValue;
 
+            calcVal = parseFloat(calcVal.toFixed(this.valueFixedDigits));
             // added after realizing original setup wasn't compatible in Firefox
             // debugger;
             if (this.cssKey === 'backgroundPosition') {
@@ -128,9 +136,14 @@ export class Parallax implements OnInit {
                 } else {
                     resultVal = 'center calc(50% + ' + calcVal + this.cssUnit + ')';
                 }
-            } else if (this.isSpecialVal) {
+                // I've only tested this on the X-axis.
+            } else if (this.cssKey === 'transform' && this.cssProperty === 'translate3d') {
+                resultVal = this.cssProperty + '(0px,' + calcVal + this.cssUnit + ',0px)';
+            }
+            else if (this.isSpecialVal) {
                 resultVal = this.cssValue + '(' + calcVal + this.cssUnit + ')';
-            } else {
+            }
+            else {
                 resultVal = calcVal + this.cssUnit;
             }
 
@@ -138,18 +151,18 @@ export class Parallax implements OnInit {
                 // console.log('this should be running')
                 this.cb.apply(this.cb_context, this.cb_args);
             }
-
             this.parallaxElement.style[this.cssKey] = resultVal;
+            this.canTrigger = true;
         }
     }
 
     public ngOnInit() {
-        let cssValArray: string[];
-
         // console.log('%s initialized on element', this.name, this.hostElement);
         // console.log(this);
 
-        for (let prop in this.config) { this[prop] = this.config[prop]; }
+        for (let prop in this.config) {
+            this[prop] = this.config[prop];
+        }
         this.cssProperty = this.cssProperty ? this.cssProperty : 'backgroundPositionY';
         if (this.cssProperty.match(/backgroundPosition/i)) {
             if (this.cssProperty.split('backgroundPosition')[1].toUpperCase() === 'X') {
@@ -158,10 +171,6 @@ export class Parallax implements OnInit {
 
             this.cssProperty = 'backgroundPosition';
         }
-
-        cssValArray = this.cssProperty.split(':');
-        this.cssKey = cssValArray[0];
-        this.cssValue = cssValArray[1];
 
         this.isSpecialVal = this.cssValue ? true : false;
         if (!this.cssValue) this.cssValue = this.cssKey;
@@ -184,13 +193,22 @@ export class Parallax implements OnInit {
                 }
             } else this.scrollElement = window;
         }
-
-        this.evaluateScroll();
-
-        this.scrollElement.addEventListener('scroll', this.evaluateScroll.bind(this));
+        window.requestAnimationFrame(this.evaluateScroll);
     }
 
     constructor(element: ElementRef) {
         this.hostElement = element.nativeElement;
     }
+
+    @HostListener("window:scroll", [])
+    onScroll() {
+        if (this.canTrigger) {
+            this.canTrigger = false;
+            const triggerInterval = timer(this.throttleInterval);
+            triggerInterval.subscribe(() => {
+                window.requestAnimationFrame(this.evaluateScroll);
+            });
+        }
+    }
 }
+
