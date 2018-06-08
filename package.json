@@ -1,6 +1,6 @@
 {
   "name": "ngx-parallax",
-  "version": "4.0.0-rc.2",
+  "version": "4.0.0-rc.3",
   "description": "Parallax effect module for Angular 4+",
   "main": "dist/bundle.js",
   "types": "main.d.ts",
@@ -9,7 +9,7 @@
     "url": "https://github.com/MattJeanes/ngx-parallax.git"
   },
   "scripts": {
-    "build": "ngc && gulp build"
+    "build": "ngc build && gulp build"
   },
   "author": "Samuel Skeen <https://github.com/cwadrupldijjit>",
   "license": "MIT",
@@ -20,14 +20,14 @@
   "devDependencies": {
     "@alexlur/rollup-plugin-typescript": "^1.0.4",
     "@angular/cli": "^6.0.8",
-    "@angular/compiler": "^5.2.0",
-    "@angular/compiler-cli": "^5.2.0",
-    "@angular/core": "^5.2.0",
+    "@angular/compiler": "^6.0.4",
+    "@angular/compiler-cli": "^6.0.4",
+    "@angular/core": "^6.0.4",
     "gulp": "^3.9.1",
     "gulp-run": "^1.7.1",
     "rollup-stream": "^1.24.1",
-    "rxjs": "5.5.6",
-    "typescript": "^2.6.2",
+    "rxjs": "6.2.0",
+    "typescript": "2.7.2",
     "vinyl-source-stream": "^2.0.0"
   }
 }
