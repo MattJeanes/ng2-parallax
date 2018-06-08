@@ -8,3 +8,4 @@ node_modules
 *.tgz
 *.metadata.json
 *.ngsummary.json
+**/*.log
